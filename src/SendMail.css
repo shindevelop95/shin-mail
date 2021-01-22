@@ -14,9 +14,17 @@
   box-shadow: 0px 5px 7px 0px rgba(0, 0, 0, 0.24);
 }
 
+.sendMail__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+}
+
 .sendMail__header > h3 {
   color: whitesmoke;
   font-size: 13px;
+  padding-left: 10px;
 }
 
 .sendMail__send {
@@ -27,12 +35,21 @@
 
 .sendMail__close {
   cursor: pointer;
+  padding-right: 10px;
+  color: whitesmoke;
 }
 
 .sendMail > form {
   display: flex;
   flex: 1;
   flex-direction: column;
+}
+
+.sendMail__error {
+  background-color: white;
+  color: red;
+  text-align: right;
+  padding: 2px;
 }
 
 .sendMail > form > input {

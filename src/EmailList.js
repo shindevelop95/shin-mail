@@ -1,11 +1,27 @@
 import { IconButton,Checkbox } from '@material-ui/core'
 import { People, LocalOffer, ArrowDropDown,KeyboardHide, ChevronLeft, ChevronRight, MoreVert, Redo, Settings,Inbox } from '@material-ui/icons'
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Section from './Section'
 import './EmailList.css'
 import EmailRow from './EmailRow'
+import { db } from './firebase'
 
 function EmailList() {
+    const [emails,setEmails] = useState([]);
+
+    useEffect(() => {
+        db.collection("emails")
+        .orderBy("timestamp","desc")
+        .onSnapshot((snapshot) =>
+            setEmails(
+                snapshot.docs.map((doc) => ({
+                    id:doc.id,
+                    data:doc.data(),
+                }))
+            )
+        )
+    }, [])
+    console.log("Check Data>>",emails)
     return (
         <div className="emailList">
             <div className="emailList__settings">
@@ -29,6 +45,16 @@ function EmailList() {
             </div>
 
             <div className="emailList__list">
+                {emails.map(email=> (
+                    <EmailRow
+                        title={email.data.to}
+                        id={email.data.id}
+                        subject={email.data.subject}
+                        description={email.data.message}
+                        time={new Date(email.data.timestamp?.seconds*100).toUTCString()}
+
+                    />
+                ))}
                 <EmailRow
                     title="Twitch"
                     subject="Hey fellow streamer"

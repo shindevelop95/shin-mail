@@ -6,12 +6,16 @@ import InboxIcon from "@material-ui/icons/Inbox"
 import StarIcon from "@material-ui/icons/Star"
 import SidebarOption from './SidebarOption'
 import {IconButton} from '@material-ui/core'
+import {useDispatch} from "react-redux"
+import {openSendMessage} from "./features/mailSlice"
 
 function Sidebar() {
+    const dispatch = useDispatch()
     return (
         <div className="sidebar">
             <Button 
                 className="sidebar__compose"
+                onClick={() => dispatch(openSendMessage())}
                 startIcon={<Add fontSize="large"/>}
             >Compose</Button>
             <SidebarOption Icon={InboxIcon} title="Inbox" number={54} selected/>
